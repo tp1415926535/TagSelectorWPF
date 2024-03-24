@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TagSelectControlWPF"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" x:Name="Root"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="ContentGrid" >
         <Grid.RowDefinitions>
@@ -18,7 +18,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ItemsControl ItemsSource="{Binding SelectedList}">
+                    <ItemsControl ItemsSource="{Binding ElementName=Root, Path=Result}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -55,7 +55,7 @@
                 </Grid>
             </ScrollViewer>
         </Border>
-        <ItemsControl Grid.Row="1" ItemsSource="{Binding AllList}" Margin="0,5">
+        <ItemsControl x:Name="AllItemsControl" Grid.Row="1" ItemsSource="{Binding }" Margin="0,5">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,12 +35,12 @@ namespace TagSelectControlWPF
         {
             var dep = d as TagSelectControl;
             if (dep == null) return;
-            dep.viewModel.InitSource((IEnumerable<string>)e.NewValue);
+            dep.InitSource((IEnumerable<string>)e.NewValue);
         }
 
-        public IEnumerable<string> Result
+        public ObservableCollection<string> Result
         {
-            get { return (IEnumerable<string>)GetValue(resultProperty); }
+            get { return (ObservableCollection<string>)GetValue(resultProperty); }
             set { SetValue(resultProperty, value); }
         }
         public static readonly DependencyProperty resultProperty = DependencyProperty.Register("Result", typeof(IEnumerable<string>), typeof(TagSelectControl), new FrameworkPropertyMetadata(null,
@@ -47,7 +49,7 @@ namespace TagSelectControlWPF
         {
             var dep = d as TagSelectControl;
             if (dep == null) return;
-            dep.viewModel.InitResult((IEnumerable<string>)e.NewValue);
+            dep.InitResult(((IEnumerable<string>)e.NewValue).ToList());
         }
 
 
@@ -64,19 +66,20 @@ namespace TagSelectControlWPF
             dep.TipTextblock.Text = e.NewValue.ToString();
         }
         #endregion
+        internal ObservableCollection<SelectableItem> AllList { get; set; } = new ObservableCollection<SelectableItem>();
 
-        internal TagSelectControlViewModel viewModel;
         public TagSelectControl()
         {
-            InitializeComponent();
-            ContentGrid.DataContext = viewModel = new TagSelectControlViewModel();
+            InitializeComponent(); 
+            AllItemsControl.DataContext = AllList;      
+            AllList.CollectionChanged += AllList_CollectionChanged;
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             var name = (sender as Button).DataContext as string;
             if (name == null) return;
-            viewModel.RemoveSelected(name);
+            RemoveSelected(name);
         }
 
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -85,7 +88,7 @@ namespace TagSelectControlWPF
             TextBox textBox = sender as TextBox;
             if (textBox == null) return;
             if (string.IsNullOrEmpty(textBox.Text)) return;
-            viewModel.AddSelected(textBox.Text);
+            AddSelected(textBox.Text);
             textBox.Text = string.Empty;
         }
 
@@ -97,6 +100,75 @@ namespace TagSelectControlWPF
             else
                 scrollViewer.LineLeft();
             e.Handled = true;
+        }
+
+
+
+
+        private void AllList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+                foreach (SelectableItem item in e.NewItems)
+                    item.PropertyChanged += OnPropertyChange;
+            if (e.OldItems != null)
+                foreach (SelectableItem item in e.OldItems)
+                    item.PropertyChanged -= OnPropertyChange;
+        }
+
+        private void OnPropertyChange(object? sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SelectableItem.IsSelected))
+            {
+                var removeTargets = new List<string>();
+                foreach (var name in Result)
+                {
+                    var item = AllList.FirstOrDefault(x => x.Name == name);
+                    if (item == null) continue;
+                    if (!item.IsSelected)
+                        removeTargets.Add(name);
+                }
+                foreach (var item in removeTargets)
+                    Result.Remove(item);
+
+                var selectedItems = AllList.Where(x => x.IsSelected).Select(x => x.Name);
+                var excepts = selectedItems.Except(Result);
+                foreach (var item in excepts)
+                    Result.Add(item);
+            }
+        }
+
+        public void InitSource(IEnumerable<string> items)
+        {
+            AllList.Clear();
+            foreach (var name in items.Distinct())
+                AllList.Add(new SelectableItem { Name = name });
+        }
+
+        public void InitResult(IEnumerable<string> items)
+        {
+            Result.Clear();
+            foreach (var name in items.Distinct())
+                AddSelected(name);
+        }
+
+        public void AddSelected(string name)
+        {
+            if (Result.Contains(name)) return;
+            Result.Add(name);
+
+            var source = AllList.FirstOrDefault(x => x.Name == name);
+            if (source != null)
+                source.IsSelected = true;
+        }
+
+        public void RemoveSelected(string name)
+        {
+            if (!Result.Contains(name)) return;
+            Result.Remove(name);
+
+            var source = AllList.FirstOrDefault(x => x.Name == name);
+            if (source != null)
+                source.IsSelected = false;
         }
     }
 }
