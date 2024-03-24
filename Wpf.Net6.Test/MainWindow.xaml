@@ -1,0 +1,25 @@
+﻿<Window x:Class="Wpf.Net6.Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf.Net6.Test" 
+        xmlns:tsc="clr-namespace:TagSelectControlWPF;assembly=TagSelectControlWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <tsc:TagSelectControl x:Name="TagSelect" Source="{Binding SourceList}" Margin="5" Result="{Binding ResultList}">
+            <tsc:TagSelectControl.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Padding" Value="5"/>
+                    <Setter Property="Background" Value="WhiteSmoke"/>
+                </Style>
+            </tsc:TagSelectControl.Resources>
+        </tsc:TagSelectControl>
+        <Button Content="Result" Grid.Row="1" Click="Button_Click"/>
+    </Grid>
+</Window>
