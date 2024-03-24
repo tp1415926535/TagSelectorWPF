@@ -49,6 +49,20 @@ namespace TagSelectControlWPF
             if (dep == null) return;
             dep.viewModel.InitResult((IEnumerable<string>)e.NewValue);
         }
+
+
+        public string Tip
+        {
+            get { return (string)GetValue(tipProperty); }
+            set { SetValue(tipProperty, value); }
+        }
+        public static readonly DependencyProperty tipProperty = DependencyProperty.Register("Tip", typeof(string), typeof(TagSelectControl), new FrameworkPropertyMetadata(TipChangedEvent));
+        private static void TipChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var dep = d as TagSelectControl;
+            if (dep == null) return;
+            dep.TipTextblock.Text = e.NewValue.ToString();
+        }
         #endregion
 
         internal TagSelectControlViewModel viewModel;

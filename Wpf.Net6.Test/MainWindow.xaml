@@ -12,7 +12,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <tsc:TagSelectControl x:Name="TagSelect" Source="{Binding SourceList}" Margin="5" Result="{Binding ResultList}">
+        <tsc:TagSelectControl x:Name="TagSelect" Source="{Binding SourceList}" Margin="5" Result="{Binding ResultList}" Tip="输入后回车添加项">
             <tsc:TagSelectControl.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Padding" Value="5"/>
