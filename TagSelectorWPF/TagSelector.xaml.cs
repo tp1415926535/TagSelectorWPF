@@ -178,6 +178,7 @@ namespace TagSelectorWPF
         public void InitSource(ObservableCollection<string> items)
         {
             AllList.Clear();
+            if (items == null) return;
             foreach (var name in items.Distinct())
                 AllList.Add(new SelectableItem { Name = name });
 
@@ -263,6 +264,7 @@ namespace TagSelectorWPF
         public void InitResult(ObservableCollection<string> items)
         {
             SelectedList.Clear();
+            if (items == null) return;
             foreach (var name in items.Distinct())
                 AddSelected(name);
 
