@@ -26,8 +26,7 @@ namespace Wpf.Net6.Test
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(string.Join(",", TagSelect.Result));
-            viewModel.GetResult();
+            MessageBox.Show(string.Join(",", TagSelect.Result) + Environment.NewLine + string.Join(",", viewModel.ResultList));
         }
     }
 }
