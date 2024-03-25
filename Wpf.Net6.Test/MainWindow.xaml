@@ -12,11 +12,15 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <tsc:TagSelector x:Name="TagSelect" Source="{Binding SourceList}" Margin="5" Result="{Binding ResultList}" Tip="输入后回车添加项">
+        <tsc:TagSelector x:Name="TagSelect" Source="{Binding SourceList}" Result="{Binding ResultList}" Tip="输入后回车添加项"
+                         AllowInput="{Binding ElementName=AllowCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}" Margin="5">
             <tsc:TagSelector.Resources>
                 <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}"/>
             </tsc:TagSelector.Resources>
         </tsc:TagSelector>
-        <Button Content="Result" Grid.Row="1" Click="Button_Click"/>
+        <StackPanel Grid.Row="1">
+            <Button Content="Result" Click="Button_Click"/>
+            <CheckBox x:Name="AllowCheckbox" Content="Allow User input text" IsChecked="True" Margin="5"/>
+        </StackPanel>
     </Grid>
 </Window>

@@ -77,6 +77,19 @@ namespace TagSelectorWPF
             if (dep == null) return;
             dep.TipTextblock.Text = e.NewValue.ToString();
         }
+
+
+
+        /// <summary>
+        /// Allow add custom tag
+        /// <para>是否允许输入自定义的标签</para> 
+        /// </summary>
+        public bool AllowInput
+        {
+            get { return (bool)GetValue(allowProperty); }
+            set { SetValue(allowProperty, value); }
+        }
+        public static readonly DependencyProperty allowProperty = DependencyProperty.Register("AllowInput", typeof(bool), typeof(TagSelector), new FrameworkPropertyMetadata(default));
         #endregion
 
         /// <summary>
@@ -251,6 +264,7 @@ namespace TagSelectorWPF
         public void AddSelected(string name)
         {
             if (Result.Contains(name)) return;
+            if (!AllowInput && !AllList.Any(x => x.Name == name)) return;
             Result.Add(name);
 
             var source = AllList.FirstOrDefault(x => x.Name == name);
