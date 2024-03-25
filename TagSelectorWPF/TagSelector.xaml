@@ -11,7 +11,7 @@
             <RowDefinition  Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Border BorderBrush="Gray" BorderThickness="1">
+        <Border BorderBrush="#FFABAdB3" BorderThickness="1">
             <ScrollViewer x:Name="ResultScrollViewer" VerticalScrollBarVisibility="Hidden" Margin="0" Padding="0" BorderThickness="0" HorizontalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                 <Grid>
                     <Grid.ColumnDefinitions>
