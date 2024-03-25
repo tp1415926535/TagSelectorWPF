@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Wpf.Net6.Test" 
         xmlns:tsc="clr-namespace:TagSelectorWPF;assembly=TagSelectorWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="300" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <tsc:TagSelector x:Name="TagSelect" Source="{Binding SourceList}" Result="{Binding ResultList}" Tip="输入后回车添加项"
                          AllowInput="{Binding ElementName=AllowCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}" Margin="5">
