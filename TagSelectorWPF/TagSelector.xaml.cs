@@ -67,6 +67,7 @@ namespace TagSelectorWPF
             dep.TipTextblock.Text = e.NewValue.ToString();
         }
         #endregion
+
         internal ObservableCollection<SelectableItem> AllList { get; set; } = new ObservableCollection<SelectableItem>();
 
         public TagSelector()
@@ -76,6 +77,7 @@ namespace TagSelectorWPF
             AllList.CollectionChanged += AllList_CollectionChanged;
         }
 
+        #region Control Events
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             var name = (sender as Button).DataContext as string;
@@ -102,8 +104,10 @@ namespace TagSelectorWPF
                 scrollViewer.LineLeft();
             e.Handled = true;
         }
+        #endregion
 
 
+        #region Collection Change
         public void InitSource(ObservableCollection<string> items)
         {
             AllList.Clear();
@@ -129,7 +133,6 @@ namespace TagSelectorWPF
                 }
             }
         }
-
 
         private void AllList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
@@ -167,8 +170,6 @@ namespace TagSelectorWPF
             }
         }
 
-
-
         public void InitResult(IEnumerable<string> items)
         {
             Result.Clear();
@@ -191,8 +192,9 @@ namespace TagSelectorWPF
             if (!Result.Contains(name)) return;
             Result.Remove(name);
 
-            foreach(var item in AllList.Where(x => x.Name == name))
+            foreach (var item in AllList.Where(x => x.Name == name))
                 item.IsSelected = false;
         }
+        #endregion
     }
 }
