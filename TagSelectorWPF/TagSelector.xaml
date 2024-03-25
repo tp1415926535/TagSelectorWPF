@@ -12,13 +12,13 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border BorderBrush="Gray" BorderThickness="1">
-            <ScrollViewer VerticalScrollBarVisibility="Hidden" Margin="0" Padding="0" BorderThickness="0" HorizontalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+            <ScrollViewer x:Name="ResultScrollViewer" VerticalScrollBarVisibility="Hidden" Margin="0" Padding="0" BorderThickness="0" HorizontalScrollBarVisibility="Hidden"  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ItemsControl ItemsSource="{Binding ElementName=Root, Path=Result}">
+                    <ItemsControl x:Name="ResultItemsControl" ItemsSource="{Binding ElementName=Root, Path=Result}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -41,7 +41,7 @@
                         <TextBox x:Name="InputBox" BorderThickness="0" VerticalContentAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown"/>
                         <TextBlock x:Name="TipTextblock" Text="input and enter to create tag" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Opacity="0.3" VerticalAlignment="Center" IsHitTestVisible="False" Margin="5" IsEnabled="False" >
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock">
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
                                     <Setter Property="Visibility" Value="Hidden"/>
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding ElementName=InputBox,Path=Text}" Value="">
@@ -56,7 +56,7 @@
             </ScrollViewer>
         </Border>
         <ScrollViewer Grid.Row="1"  Margin="0,5" VerticalScrollBarVisibility="Auto">
-            <ItemsControl x:Name="AllItemsControl" ItemsSource="{Binding }">
+            <ItemsControl x:Name="AllItemsControl" ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel/>
@@ -64,10 +64,13 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <ToggleButton  Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderThickness="0" Padding="6,4" Margin="3" Content="{Binding Name,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                        <ToggleButton BorderThickness="0" Padding="6,4" Margin="3" Content="{Binding Name,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
                             <ToggleButton.Resources>
                                 <Style TargetType="{x:Type Border}">
                                     <Setter Property="CornerRadius" Value="3" />
+                                </Style>
+                                <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+                                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
                                 </Style>
                             </ToggleButton.Resources>
                         </ToggleButton>

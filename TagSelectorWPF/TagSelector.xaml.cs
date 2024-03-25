@@ -70,11 +70,15 @@ namespace TagSelectorWPF
 
         internal ObservableCollection<SelectableItem> AllList { get; set; } = new ObservableCollection<SelectableItem>();
 
+        ScrollDragger scrollDragger;
+
         public TagSelector()
         {
             InitializeComponent();
             AllItemsControl.DataContext = AllList;
             AllList.CollectionChanged += AllList_CollectionChanged;
+
+            scrollDragger = new ScrollDragger(ResultItemsControl, ResultScrollViewer);
         }
 
         #region Control Events

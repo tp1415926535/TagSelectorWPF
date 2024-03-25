@@ -18,7 +18,7 @@ namespace Wpf.Net6.Test
 
         public ObservableCollection<string> ResultList { get; set; } = new ObservableCollection<string>()
         {
-            "冒险"
+            "冒险","台湾前途前往台湾掐头去尾","工业区完好无缺二号桥威尔和乔恩乔恩七年企鹅"
         };
 
 
