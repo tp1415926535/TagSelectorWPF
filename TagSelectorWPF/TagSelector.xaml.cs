@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace TagSelectorWPF
 {
@@ -24,18 +26,18 @@ namespace TagSelectorWPF
     public partial class TagSelector : UserControl
     {
         #region property
-        public IEnumerable<string> Source
+        public IList<string> Source
         {
-            get { return (IEnumerable<string>)GetValue(sourceProperty); }
+            get { return (IList<string>)GetValue(sourceProperty); }
             set { SetValue(sourceProperty, value); }
         }
 
-        public static readonly DependencyProperty sourceProperty = DependencyProperty.Register("Source", typeof(IEnumerable<string>), typeof(TagSelector), new PropertyMetadata(SourceChangedEvent));
+        public static readonly DependencyProperty sourceProperty = DependencyProperty.Register("Source", typeof(IList<string>), typeof(TagSelector), new PropertyMetadata(SourceChangedEvent));
         private static void SourceChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var dep = d as TagSelector;
             if (dep == null) return;
-            dep.InitSource((IEnumerable<string>)e.NewValue);
+            dep.InitSource((ObservableCollection<string>)e.NewValue);
         }
 
         public ObservableCollection<string> Result
@@ -43,8 +45,7 @@ namespace TagSelectorWPF
             get { return (ObservableCollection<string>)GetValue(resultProperty); }
             set { SetValue(resultProperty, value); }
         }
-        public static readonly DependencyProperty resultProperty = DependencyProperty.Register("Result", typeof(IEnumerable<string>), typeof(TagSelector), new FrameworkPropertyMetadata(null,
-                                  FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ResultChangedEvent));
+        public static readonly DependencyProperty resultProperty = DependencyProperty.Register("Result", typeof(IEnumerable<string>), typeof(TagSelector), new PropertyMetadata(ResultChangedEvent));
         private static void ResultChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var dep = d as TagSelector;
@@ -70,8 +71,8 @@ namespace TagSelectorWPF
 
         public TagSelector()
         {
-            InitializeComponent(); 
-            AllItemsControl.DataContext = AllList;      
+            InitializeComponent();
+            AllItemsControl.DataContext = AllList;
             AllList.CollectionChanged += AllList_CollectionChanged;
         }
 
@@ -103,6 +104,27 @@ namespace TagSelectorWPF
         }
 
 
+        public void InitSource(ObservableCollection<string> items)
+        {
+            AllList.Clear();
+            foreach (var name in items.Distinct())
+                AllList.Add(new SelectableItem { Name = name });
+
+            items.CollectionChanged += SourceList_CollectionChanged;
+        }
+        private void SourceList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+                foreach (string name in e.NewItems)
+                    AllList.Add(new SelectableItem { Name = name });
+            if (e.OldItems != null)
+                foreach (string name in e.OldItems)
+                {
+                    var item = AllList.FirstOrDefault(x => x.Name == name);
+                    if (item != null)
+                        AllList.Remove(item);
+                }
+        }
 
 
         private void AllList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
@@ -137,12 +159,7 @@ namespace TagSelectorWPF
             }
         }
 
-        public void InitSource(IEnumerable<string> items)
-        {
-            AllList.Clear();
-            foreach (var name in items.Distinct())
-                AllList.Add(new SelectableItem { Name = name });
-        }
+
 
         public void InitResult(IEnumerable<string> items)
         {
@@ -166,9 +183,8 @@ namespace TagSelectorWPF
             if (!Result.Contains(name)) return;
             Result.Remove(name);
 
-            var source = AllList.FirstOrDefault(x => x.Name == name);
-            if (source != null)
-                source.IsSelected = false;
+            foreach(var item in AllList.Where(x => x.Name == name))
+                item.IsSelected = false;
         }
     }
 }

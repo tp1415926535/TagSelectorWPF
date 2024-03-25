@@ -24,6 +24,7 @@ namespace Wpf.Net6.Test
 
         public void GetResult()
         {
+            //ResultList.Add("测试");
             MessageBox.Show(string.Join(",", ResultList));
         }
     }
