@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TagSelectControlWPF", "TagSelectControlWPF\TagSelectControlWPF.csproj", "{56CAB743-DE72-4496-A966-0C7C65CFF5E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TagSelectorWPF", "TagSelectorWPF\TagSelectorWPF.csproj", "{56CAB743-DE72-4496-A966-0C7C65CFF5E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wpf.Net6.Test", "Wpf.Net6.Test\Wpf.Net6.Test.csproj", "{CC2F6FCC-4551-47EA-8CAD-B6A4B79773ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf.Net6.Test", "Wpf.Net6.Test\Wpf.Net6.Test.csproj", "{CC2F6FCC-4551-47EA-8CAD-B6A4B79773ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

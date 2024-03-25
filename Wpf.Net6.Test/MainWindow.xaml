@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Wpf.Net6.Test" 
-        xmlns:tsc="clr-namespace:TagSelectControlWPF;assembly=TagSelectControlWPF"
+        xmlns:tsc="clr-namespace:TagSelectorWPF;assembly=TagSelectorWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
@@ -12,14 +12,14 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <tsc:TagSelectControl x:Name="TagSelect" Source="{Binding SourceList}" Margin="5" Result="{Binding ResultList}" Tip="输入后回车添加项">
-            <tsc:TagSelectControl.Resources>
+        <tsc:TagSelector x:Name="TagSelect" Source="{Binding SourceList}" Margin="5" Result="{Binding ResultList}" Tip="输入后回车添加项">
+            <tsc:TagSelector.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Padding" Value="5"/>
                     <Setter Property="Background" Value="WhiteSmoke"/>
                 </Style>
-            </tsc:TagSelectControl.Resources>
-        </tsc:TagSelectControl>
+            </tsc:TagSelector.Resources>
+        </tsc:TagSelector>
         <Button Content="Result" Grid.Row="1" Click="Button_Click"/>
     </Grid>
 </Window>

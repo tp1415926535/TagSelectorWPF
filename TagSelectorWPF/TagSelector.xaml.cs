@@ -16,12 +16,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TagSelectControlWPF
+namespace TagSelectorWPF
 {
     /// <summary>
-    /// TagSelectControl.xaml 的交互逻辑
+    /// TagSelector.xaml 的交互逻辑
     /// </summary>
-    public partial class TagSelectControl : UserControl
+    public partial class TagSelector : UserControl
     {
         #region property
         public IEnumerable<string> Source
@@ -30,10 +30,10 @@ namespace TagSelectControlWPF
             set { SetValue(sourceProperty, value); }
         }
 
-        public static readonly DependencyProperty sourceProperty = DependencyProperty.Register("Source", typeof(IEnumerable<string>), typeof(TagSelectControl), new PropertyMetadata(SourceChangedEvent));
+        public static readonly DependencyProperty sourceProperty = DependencyProperty.Register("Source", typeof(IEnumerable<string>), typeof(TagSelector), new PropertyMetadata(SourceChangedEvent));
         private static void SourceChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var dep = d as TagSelectControl;
+            var dep = d as TagSelector;
             if (dep == null) return;
             dep.InitSource((IEnumerable<string>)e.NewValue);
         }
@@ -43,11 +43,11 @@ namespace TagSelectControlWPF
             get { return (ObservableCollection<string>)GetValue(resultProperty); }
             set { SetValue(resultProperty, value); }
         }
-        public static readonly DependencyProperty resultProperty = DependencyProperty.Register("Result", typeof(IEnumerable<string>), typeof(TagSelectControl), new FrameworkPropertyMetadata(null,
+        public static readonly DependencyProperty resultProperty = DependencyProperty.Register("Result", typeof(IEnumerable<string>), typeof(TagSelector), new FrameworkPropertyMetadata(null,
                                   FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, ResultChangedEvent));
         private static void ResultChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var dep = d as TagSelectControl;
+            var dep = d as TagSelector;
             if (dep == null) return;
             dep.InitResult(((IEnumerable<string>)e.NewValue).ToList());
         }
@@ -58,17 +58,17 @@ namespace TagSelectControlWPF
             get { return (string)GetValue(tipProperty); }
             set { SetValue(tipProperty, value); }
         }
-        public static readonly DependencyProperty tipProperty = DependencyProperty.Register("Tip", typeof(string), typeof(TagSelectControl), new FrameworkPropertyMetadata(TipChangedEvent));
+        public static readonly DependencyProperty tipProperty = DependencyProperty.Register("Tip", typeof(string), typeof(TagSelector), new FrameworkPropertyMetadata(TipChangedEvent));
         private static void TipChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var dep = d as TagSelectControl;
+            var dep = d as TagSelector;
             if (dep == null) return;
             dep.TipTextblock.Text = e.NewValue.ToString();
         }
         #endregion
         internal ObservableCollection<SelectableItem> AllList { get; set; } = new ObservableCollection<SelectableItem>();
 
-        public TagSelectControl()
+        public TagSelector()
         {
             InitializeComponent(); 
             AllItemsControl.DataContext = AllList;      
