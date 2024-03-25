@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="ContentGrid" >
         <Grid.RowDefinitions>
-            <RowDefinition  Height="28"/>
+            <RowDefinition  Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border BorderBrush="Gray" BorderThickness="1">
@@ -55,23 +55,25 @@
                 </Grid>
             </ScrollViewer>
         </Border>
-        <ItemsControl x:Name="AllItemsControl" Grid.Row="1" ItemsSource="{Binding }" Margin="0,5">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <ToggleButton  Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderThickness="0" Padding="6,4" Margin="3" Content="{Binding Name,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
-                        <ToggleButton.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="3" />
-                            </Style>
-                        </ToggleButton.Resources>
-                    </ToggleButton>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer Grid.Row="1"  Margin="0,5" VerticalScrollBarVisibility="Auto">
+            <ItemsControl x:Name="AllItemsControl" ItemsSource="{Binding }">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ToggleButton  Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" BorderThickness="0" Padding="6,4" Margin="3" Content="{Binding Name,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" IsChecked="{Binding IsSelected,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                            <ToggleButton.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="3" />
+                                </Style>
+                            </ToggleButton.Resources>
+                        </ToggleButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
     </Grid>
 </UserControl>

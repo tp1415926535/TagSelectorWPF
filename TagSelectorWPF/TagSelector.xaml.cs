@@ -115,26 +115,34 @@ namespace TagSelectorWPF
         private void SourceList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
+            {
                 foreach (string name in e.NewItems)
                     AllList.Add(new SelectableItem { Name = name });
+            }
             if (e.OldItems != null)
+            {
                 foreach (string name in e.OldItems)
                 {
                     var item = AllList.FirstOrDefault(x => x.Name == name);
                     if (item != null)
                         AllList.Remove(item);
                 }
+            }
         }
 
 
         private void AllList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
+            {
                 foreach (SelectableItem item in e.NewItems)
                     item.PropertyChanged += OnPropertyChange;
+            }
             if (e.OldItems != null)
+            {
                 foreach (SelectableItem item in e.OldItems)
                     item.PropertyChanged -= OnPropertyChange;
+            }
         }
 
         private void OnPropertyChange(object? sender, PropertyChangedEventArgs e)
