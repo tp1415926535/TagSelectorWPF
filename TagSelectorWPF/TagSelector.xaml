@@ -29,7 +29,7 @@
                                 <Border Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" CornerRadius="3" Margin="3">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding }" VerticalAlignment="Center" Margin="3,3,0,3"/>
-                                        <Button  Click="RemoveButton_Click" BorderThickness="0" Background="Transparent" Width="16" Height="16">
+                                        <Button  Click="RemoveButton_Click" BorderThickness="0" Background="Transparent" Width="16" Height="16" Cursor="Hand">
                                             <Path Data="M 0,0 5,5 M 0,5 5,0" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Margin="3" Stretch="Fill" />
                                         </Button>
                                     </StackPanel>
