@@ -28,6 +28,7 @@ namespace TagSelectorWPF
         #region property
         /// <summary>
         /// A list of data sources that are used to predefine the available options that the user can select from this list
+        ///  <para>来源列表，用于提供给用户预设可选的项</para> 
         /// </summary>
         public ObservableCollection<string> Source
         {
@@ -45,6 +46,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// The result of the selection. You can pre-set the selected items or get them directly as a return value
+        ///  <para>选择的结果，可以设置预设结果或直接作为返回值获取</para> 
         /// </summary>
         public ObservableCollection<string> Result
         {
@@ -61,6 +63,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// Prompt word displayed when the input box does not contain characters
+        /// <para>输入框为空时显示的提示词</para> 
         /// </summary>
         public string Tip
         {
@@ -78,11 +81,13 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// Source list with boolean state
+        /// <para>来源列表转换到带布尔状态，用于绑定</para> 
         /// </summary>
         internal ObservableCollection<SelectableItem> AllList { get; set; } = new ObservableCollection<SelectableItem>();
 
         /// <summary>
         /// Providing Drag for Horizontal ScrollViewer
+        /// <para>为横向滚动视图提供拖动</para> 
         /// </summary>
         ScrollDragger scrollDragger;
 
@@ -97,7 +102,8 @@ namespace TagSelectorWPF
 
         #region Control Events
         /// <summary>
-        /// Remove button click
+        /// Remove button's click
+        /// <para>移除按钮的点击事件</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -109,6 +115,7 @@ namespace TagSelectorWPF
         }
         /// <summary>
         /// Text box press enter key to add a tag
+        /// <para>按下回车添加一项</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -123,6 +130,7 @@ namespace TagSelectorWPF
         }
         /// <summary>
         /// Result list horizontal scrolling
+        /// <para>结果列表横向滚动</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -141,6 +149,7 @@ namespace TagSelectorWPF
         #region Collection Change
         /// <summary>
         /// Add initial values to source list with boolean, subscribe to source list changes
+        /// <para>添加初始值到带布尔值的列表，并订阅列表源变更事件</para> 
         /// </summary>
         /// <param name="items"></param>
         public void InitSource(ObservableCollection<string> items)
@@ -154,6 +163,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// Add or remove to source list with boolean
+        /// <para>带布尔值的列表对应源变更时</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -176,6 +186,7 @@ namespace TagSelectorWPF
         }
         /// <summary>
         /// Subscribe to Boolean property change events
+        /// <para>订阅布尔属性变更事件</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -195,6 +206,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// Display to result list when boolean attribute is changed
+        /// <para>变更布尔属性时，显示到结果列表</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -222,6 +234,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// Adding a preset result value
+        /// <para>添加预设结果值</para> 
         /// </summary>
         /// <param name="items"></param>
         public void InitResult(IEnumerable<string> items)
@@ -231,7 +244,8 @@ namespace TagSelectorWPF
                 AddSelected(name);
         }
         /// <summary>
-        /// Add item and set select state true if exist
+        /// Add item and set selected state true if exist in source
+        /// <para>添加项目，如果来源中存在则设置选中状态为true</para> 
         /// </summary>
         /// <param name="name"></param>
         public void AddSelected(string name)
@@ -244,7 +258,8 @@ namespace TagSelectorWPF
                 source.IsSelected = true;
         }
         /// <summary>
-        /// Remove item and set select state false if exist
+        /// Remove item and set selected state false if exist in source
+        /// <para>删除项目，如果来源中存在则将选中状态设置为false</para> 
         /// </summary>
         /// <param name="name"></param>
         public void RemoveSelected(string name)
