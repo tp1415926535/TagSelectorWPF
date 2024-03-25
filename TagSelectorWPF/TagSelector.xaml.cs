@@ -37,7 +37,7 @@ namespace TagSelectorWPF
         }
 
         public static readonly DependencyProperty sourceProperty = DependencyProperty.Register("Source", typeof(ObservableCollection<string>), typeof(TagSelector), new PropertyMetadata(SourceChangedEvent));
-        private static void SourceChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void SourceChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)//only trigger once in binding
         {
             var dep = d as TagSelector;
             if (dep == null) return;
@@ -54,11 +54,11 @@ namespace TagSelectorWPF
             set { SetValue(resultProperty, value); }
         }
         public static readonly DependencyProperty resultProperty = DependencyProperty.Register("Result", typeof(ObservableCollection<string>), typeof(TagSelector), new PropertyMetadata(ResultChangedEvent));
-        private static void ResultChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void ResultChangedEvent(DependencyObject d, DependencyPropertyChangedEventArgs e)//only trigger once in binding
         {
             var dep = d as TagSelector;
             if (dep == null) return;
-            dep.InitResult(((IEnumerable<string>)e.NewValue).ToList());
+            dep.InitResult((ObservableCollection<string>)e.NewValue);
         }
 
         /// <summary>
@@ -77,7 +77,6 @@ namespace TagSelectorWPF
             if (dep == null) return;
             dep.TipTextblock.Text = e.NewValue.ToString();
         }
-
 
 
         /// <summary>
@@ -99,6 +98,13 @@ namespace TagSelectorWPF
         internal ObservableCollection<SelectableItem> AllList { get; set; } = new ObservableCollection<SelectableItem>();
 
         /// <summary>
+        /// SelectedList, different from Result Source so that can check if outside add item
+        /// <para>绑定到控件的结果列表，用于区分是否是外部传入的变更</para> 
+        /// </summary>
+        internal ObservableCollection<string> SelectedList { get; set; } = new ObservableCollection<string>();
+
+
+        /// <summary>
         /// Providing Drag for Horizontal ScrollViewer
         /// <para>为横向滚动视图提供拖动</para> 
         /// </summary>
@@ -108,6 +114,7 @@ namespace TagSelectorWPF
         {
             InitializeComponent();
             AllItemsControl.DataContext = AllList;
+            ResultItemsControl.DataContext = SelectedList;
             AllList.CollectionChanged += AllList_CollectionChanged;
 
             scrollDragger = new ScrollDragger(ResultItemsControl, ResultScrollViewer);
@@ -124,7 +131,7 @@ namespace TagSelectorWPF
         {
             var name = (sender as Button).DataContext as string;
             if (name == null) return;
-            RemoveSelected(name);
+            Result.Remove(name);
         }
         /// <summary>
         /// Text box press enter key to add a tag
@@ -138,7 +145,10 @@ namespace TagSelectorWPF
             TextBox textBox = sender as TextBox;
             if (textBox == null) return;
             if (string.IsNullOrEmpty(textBox.Text)) return;
-            AddSelected(textBox.Text);
+            string name = textBox.Text;
+            if (!Result.Contains(name))
+                Result.Add(name);
+            //AddSelected(textBox.Text);
             textBox.Text = string.Empty;
         }
         /// <summary>
@@ -250,36 +260,59 @@ namespace TagSelectorWPF
         /// <para>添加预设结果值</para> 
         /// </summary>
         /// <param name="items"></param>
-        public void InitResult(IEnumerable<string> items)
+        public void InitResult(ObservableCollection<string> items)
         {
-            Result.Clear();
+            SelectedList.Clear();
             foreach (var name in items.Distinct())
                 AddSelected(name);
+
+            items.CollectionChanged += ResultList_CollectionChanged;
         }
         /// <summary>
-        /// Add item and set selected state true if exist in source
-        /// <para>添加项目，如果来源中存在则设置选中状态为true</para> 
+        /// Add or remove to result list from outside
+        /// <para>带布尔值的列表对应源变更时</para> 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ResultList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (string name in e.NewItems)
+                    AddSelected(name);
+            }
+            if (e.OldItems != null)
+            {
+                foreach (string name in e.OldItems)
+                    RemoveSelected(name);
+            }
+        }
+        /// <summary>
+        /// Add item and set selected state true if exist in source.
+        /// Effect to show, should be only called by CollectionChange and init.
+        /// <para>添加项目，如果来源中存在则设置选中状态为true。用于显示，应该只被订阅的变更事件和初始化调用</para> 
         /// </summary>
         /// <param name="name"></param>
         public void AddSelected(string name)
         {
-            if (Result.Contains(name)) return;
+            if (SelectedList.Contains(name)) return;
             if (!AllowInput && !AllList.Any(x => x.Name == name)) return;
-            Result.Add(name);
+            SelectedList.Add(name);
 
             var source = AllList.FirstOrDefault(x => x.Name == name);
             if (source != null)
                 source.IsSelected = true;
         }
         /// <summary>
-        /// Remove item and set selected state false if exist in source
-        /// <para>删除项目，如果来源中存在则将选中状态设置为false</para> 
+        /// Remove item and set selected state false if exist in source.
+        /// Effect to show, should be only called by CollectionChange.
+        /// <para>删除项目，如果来源中存在则将选中状态设置为false。用于显示，应该只被订阅的变更事件调用</para> 
         /// </summary>
         /// <param name="name"></param>
         public void RemoveSelected(string name)
         {
-            if (!Result.Contains(name)) return;
-            Result.Remove(name);
+            if (!SelectedList.Contains(name)) return;
+            SelectedList.Remove(name);
 
             foreach (var item in AllList.Where(x => x.Name == name))
                 item.IsSelected = false;

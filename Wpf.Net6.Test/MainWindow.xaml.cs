@@ -28,5 +28,10 @@ namespace Wpf.Net6.Test
         {
             MessageBox.Show(string.Join(",", TagSelect.Result) + Environment.NewLine + string.Join(",", viewModel.ResultList));
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            viewModel.AddItem();
+        }
     }
 }

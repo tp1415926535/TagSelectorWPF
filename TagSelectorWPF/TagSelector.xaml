@@ -18,7 +18,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ItemsControl x:Name="ResultItemsControl" ItemsSource="{Binding ElementName=Root, Path=Result}">
+                    <ItemsControl x:Name="ResultItemsControl" ItemsSource="{Binding}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal"/>
@@ -47,7 +47,7 @@
                                 </Style.Triggers>
                             </Style>
                         </Grid.Style>
-                        <TextBox x:Name="InputBox" BorderThickness="0" VerticalContentAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown"/>
+                        <TextBox x:Name="InputBox" BorderThickness="0" VerticalContentAlignment="Center" PreviewKeyDown="TextBox_PreviewKeyDown" Padding="0"/>
                         <TextBlock x:Name="TipTextblock" Text="input and enter to create tag" Foreground="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" Opacity="0.3" VerticalAlignment="Center" IsHitTestVisible="False" Margin="5" IsEnabled="False" >
                             <TextBlock.Style>
                                 <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">

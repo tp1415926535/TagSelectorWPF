@@ -17,14 +17,17 @@ namespace Wpf.Net6.Test
 
 
         public ObservableCollection<string> ResultList { get; set; } = new ObservableCollection<string>()
-        {
-           "data1","dataCustom"
-        };
+        {  "data2" };
 
+
+        public void AddItem()
+        {
+            ResultList.Add("data1");
+            ResultList.Add("dataCustom");
+        }
 
         public void GetResult()
         {
-            //ResultList.Add("测试");
             MessageBox.Show(string.Join(",", ResultList));
         }
     }
