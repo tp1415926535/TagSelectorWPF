@@ -14,7 +14,7 @@ xaml:
 xmlns:tsc="clr-namespace:TagSelectorWPF;assembly=TagSelectorWPF"
 
 <tsc:TagSelector Source="{Binding SourceList}" Result="{Binding ResultList}"
-     Tip="Press Enter to add Tag"  AllowInput="True"/>
+                 Tip="Press Enter to add Tag"  AllowInput="True"/>
 ```
 
 ViewModel:
