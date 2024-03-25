@@ -1,10 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <UseWPF>true</UseWPF>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Company />
+		<Authors>tp1415926535</Authors>
+		<PackageProjectUrl>https://github.com/tp1415926535/TagSelectorWPF</PackageProjectUrl>
+		<Description>Tag selector, support for binding, setting up preset lists, adding custom values.
+标签选择器，支持绑定，设置预设列表，添加自定义值。</Description>
+	</PropertyGroup>
 
 </Project>
