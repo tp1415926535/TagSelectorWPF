@@ -21,8 +21,8 @@
         </tsc:TagSelector>
         <StackPanel Grid.Row="1">
             <Button Content="Result" Click="Button_Click"/>
-            <CheckBox x:Name="AllowInputCheckbox" Content="Allow user input text" IsChecked="False" Margin="5"/>
-            <CheckBox x:Name="AllowCustomCheckbox" Content="Allow custom tag that is not in the source" IsChecked="False" Margin="5"/>
+            <CheckBox x:Name="AllowInputCheckbox" Content="Allow user input text" IsChecked="True" Margin="5"/>
+            <CheckBox x:Name="AllowCustomCheckbox" Content="Allow custom tag that is not in the source" IsChecked="True" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

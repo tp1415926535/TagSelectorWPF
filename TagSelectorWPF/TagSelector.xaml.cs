@@ -174,6 +174,35 @@ namespace TagSelectorWPF
                 scrollViewer.LineLeft();
             e.Handled = true;
         }
+
+        /// <summary>
+        /// Suggestion TextBox
+        /// from "https://stackoverflow.com/a/51685375/15891701"
+        /// </summary>
+        private string _currentInput = "";
+        private string _currentSuggestion = "";
+        private string _currentText = "";
+        private int _selectionStart;
+        private int _selectionLength;
+        private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Source == null || Result == null) return;
+            var input = InputBox.Text;
+            if (input.Length > _currentInput.Length && input != _currentSuggestion)
+            {
+                _currentSuggestion = Source.FirstOrDefault(x => x.StartsWith(input) && !Result.Contains(x));
+                if (_currentSuggestion != null)
+                {
+                    _currentText = _currentSuggestion;
+                    _selectionStart = input.Length;
+                    _selectionLength = _currentSuggestion.Length - input.Length;
+
+                    InputBox.Text = _currentText;
+                    InputBox.Select(_selectionStart, _selectionLength);
+                }
+            }
+            _currentInput = input;
+        }
         #endregion
     }
 }
