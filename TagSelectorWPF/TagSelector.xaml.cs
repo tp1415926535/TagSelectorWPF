@@ -99,6 +99,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// ViewModel, binding to Show
+        /// <para>ViewModel，绑定显示</para> 
         /// </summary>
         TagSelectorViewModel viewModel;
 
