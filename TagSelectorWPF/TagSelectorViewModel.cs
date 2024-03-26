@@ -25,7 +25,7 @@ namespace TagSelectorWPF
 
         /// <summary>
         /// SelectedList, only for displaying in control. Add or remove item should Set Contorl's Result property
-        /// <para>绑定到控件的结果列表，仅用于显示，添加或删除项需要设置控件的Result属性</para> 
+        /// <para>绑定到控件的结果列表，仅用于显示。添加或删除项需要设置控件的Result属性</para> 
         /// </summary>
         internal ObservableCollection<string> SelectedList { get; set; } = new ObservableCollection<string>();
 
@@ -76,8 +76,8 @@ namespace TagSelectorWPF
             }
         }
         /// <summary>
-        /// Subscribe to Boolean property change events
-        /// <para>订阅布尔属性变更事件</para> 
+        /// AllList item Subscribe to Boolean property change events
+        /// <para>AllList每项订阅布尔属性变更事件</para> 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -138,7 +138,7 @@ namespace TagSelectorWPF
             items.CollectionChanged += ResultList_CollectionChanged;
         }
         /// <summary>
-        /// Add or remove to result list from 'Result', effect to SelectedList and set AllList item boolean
+        /// 'Result' item changed, effect to SelectedList and set AllList item boolean
         /// <para>结果属性'Result'源变更时，同步到SelectedList并且设置AllList对应项的布尔值</para> 
         /// </summary>
         /// <param name="sender"></param>
@@ -157,9 +157,9 @@ namespace TagSelectorWPF
             }
         }
         /// <summary>
-        /// Add item and set selected state true if exist in source.
+        /// Add SelectedList item and set selected state true if exist in AllList.
         /// For displaying, should be only called by CollectionChange and init.
-        /// <para>添加项目，如果来源中存在则设置选中状态为true。用于显示，应该只被订阅的变更事件和初始化调用</para> 
+        /// <para>添加SelectedList项目，如果AllList中存在则设置选中状态为true。用于显示，应该只被订阅的变更事件和初始化调用</para> 
         /// </summary>
         /// <param name="name"></param>
         public void AddSelected(string name)
@@ -173,9 +173,9 @@ namespace TagSelectorWPF
                 source.IsSelected = true;
         }
         /// <summary>
-        /// Remove item and set selected state false if exist in source.
+        /// Remove SelectedList item and set selected state false if exist in source.
         /// For displaying, should be only called by CollectionChange.
-        /// <para>删除项目，如果来源中存在则将选中状态设置为false。用于显示，应该只被订阅的变更事件调用</para> 
+        /// <para>删除SelectedList项目，如果AllList中存在则将选中状态设置为false。用于显示，应该只被订阅的变更事件调用</para> 
         /// </summary>
         /// <param name="name"></param>
         public void RemoveSelected(string name)
