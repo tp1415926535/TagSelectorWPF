@@ -46,7 +46,7 @@ namespace TagSelectorWPF
         {
             AllList.Clear();
             if (items == null) return;
-            foreach (var name in items.Distinct())
+            foreach (var name in items.ToList().Distinct())
                 AllList.Add(new SelectableItem { Name = name });
 
             items.CollectionChanged += SourceList_CollectionChanged;
@@ -132,7 +132,7 @@ namespace TagSelectorWPF
         {
             SelectedList.Clear();
             if (items == null) return;
-            foreach (var name in items.Distinct())
+            foreach (var name in items.ToList().Distinct())
                 AddSelected(name);
 
             items.CollectionChanged += ResultList_CollectionChanged;

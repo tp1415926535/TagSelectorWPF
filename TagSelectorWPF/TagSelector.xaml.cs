@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
@@ -188,7 +189,7 @@ namespace TagSelectorWPF
         {
             if (Source == null || Result == null) return;
             var input = InputBox.Text;
-            if (input.Length > _currentInput.Length && input != _currentSuggestion)
+            if (input.Length >= _currentInput.Length && input != _currentSuggestion)
             {
                 _currentSuggestion = Source.FirstOrDefault(x => x.StartsWith(input) && !Result.Contains(x));
                 if (_currentSuggestion != null)
