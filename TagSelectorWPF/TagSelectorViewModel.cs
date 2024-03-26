@@ -165,7 +165,12 @@ namespace TagSelectorWPF
         public void AddSelected(string name)
         {
             if (SelectedList.Contains(name)) return;
-            if (!tagSelectorControl.AllowInput && !AllList.Any(x => x.Name == name)) return;
+            if (!tagSelectorControl.AllowInput && !AllList.Any(x => x.Name == name))
+            {
+                if (!tagSelectorControl.AllowCustom)
+                    tagSelectorControl.Result.Remove(name);
+                return;
+            }
             SelectedList.Add(name);
 
             var source = AllList.FirstOrDefault(x => x.Name == name);

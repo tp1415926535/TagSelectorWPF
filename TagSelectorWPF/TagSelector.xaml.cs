@@ -80,15 +80,26 @@ namespace TagSelectorWPF
 
 
         /// <summary>
-        /// Allow add custom tag
-        /// <para>是否允许输入自定义的标签</para> 
+        /// Allow add tag by input
+        /// <para>是否允许输入标签</para> 
         /// </summary>
         public bool AllowInput
         {
-            get { return (bool)GetValue(allowProperty); }
-            set { SetValue(allowProperty, value); }
+            get { return (bool)GetValue(allowInputProperty); }
+            set { SetValue(allowInputProperty, value); }
         }
-        public static readonly DependencyProperty allowProperty = DependencyProperty.Register("AllowInput", typeof(bool), typeof(TagSelector), new FrameworkPropertyMetadata(default));
+        public static readonly DependencyProperty allowInputProperty = DependencyProperty.Register("AllowInput", typeof(bool), typeof(TagSelector), new FrameworkPropertyMetadata(default));
+
+        /// <summary>
+        /// Allow add custom tag
+        /// <para>是否允许存在不在Source内的自定义标签</para> 
+        /// </summary>
+        public bool AllowCustom
+        {
+            get { return (bool)GetValue(allowCustomProperty); }
+            set { SetValue(allowCustomProperty, value); }
+        }
+        public static readonly DependencyProperty allowCustomProperty = DependencyProperty.Register("AllowCustom", typeof(bool), typeof(TagSelector), new FrameworkPropertyMetadata(default));
         #endregion
 
         /// <summary>
@@ -140,8 +151,11 @@ namespace TagSelectorWPF
             if (textBox == null) return;
             if (string.IsNullOrEmpty(textBox.Text)) return;
             string name = textBox.Text;
-            if (!Result.Contains(name))
-                Result.Add(name);
+            if (AllowCustom || (!AllowCustom && Source.Contains(name)))
+            {
+                if (!Result.Contains(name))
+                    Result.Add(name);
+            }
             //AddSelected(textBox.Text);
             textBox.Text = string.Empty;
         }

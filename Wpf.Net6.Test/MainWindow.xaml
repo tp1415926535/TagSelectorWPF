@@ -13,14 +13,16 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <tsc:TagSelector x:Name="TagSelect" Source="{Binding SourceList}" Result="{Binding ResultList}" Tip="输入后回车添加项"
-                         AllowInput="{Binding ElementName=AllowCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}" Margin="5">
+                         AllowInput="{Binding ElementName=AllowInputCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}"
+                         AllowCustom="{Binding ElementName=AllowCustomCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}" Margin="5">
             <tsc:TagSelector.Resources>
                 <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}"/>
             </tsc:TagSelector.Resources>
         </tsc:TagSelector>
         <StackPanel Grid.Row="1">
             <Button Content="Result" Click="Button_Click"/>
-            <CheckBox x:Name="AllowCheckbox" Content="Allow User input text" IsChecked="True" Margin="5"/>
+            <CheckBox x:Name="AllowInputCheckbox" Content="Allow user input text" IsChecked="False" Margin="5"/>
+            <CheckBox x:Name="AllowCustomCheckbox" Content="Allow custom tag that is not in the source" IsChecked="False" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>
