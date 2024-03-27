@@ -58,7 +58,7 @@ namespace TagSelectorWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void SourceList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private void SourceList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
             {
@@ -81,7 +81,7 @@ namespace TagSelectorWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void AllList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private void AllList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
             {
@@ -101,7 +101,7 @@ namespace TagSelectorWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnPropertyChange(object? sender, PropertyChangedEventArgs e)
+        private void OnPropertyChange(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(SelectableItem.IsSelected))
             {
@@ -143,7 +143,7 @@ namespace TagSelectorWPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ResultList_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private void ResultList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.NewItems != null)
             {
