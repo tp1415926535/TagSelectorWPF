@@ -12,12 +12,12 @@ namespace Wpf.Net6.Test
     {
         public ObservableCollection<string> SourceList { get; set; } = new ObservableCollection<string>()
         {
-            "data1","data2","data3","data4"
+            "Adventure","Action","Sports","Simulation","Platformer","RPG","First-person shooter","Action-adventure","Fighting","Real-time strategy","Racing","Shooter"
         };
 
 
         public ObservableCollection<string> ResultList { get; set; } = new ObservableCollection<string>()
-        {  "data2" };
+        { };
 
 
         public void AddItem()
