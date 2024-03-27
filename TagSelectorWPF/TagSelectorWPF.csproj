@@ -11,6 +11,19 @@
 		<PackageProjectUrl>https://github.com/tp1415926535/TagSelectorWPF</PackageProjectUrl>
 		<Description>Tag selector, support for binding, setting up preset lists, adding custom values.
 标签选择器，支持绑定，设置预设列表，添加自定义值。</Description>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
