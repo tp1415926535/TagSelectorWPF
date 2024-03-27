@@ -1,0 +1,32 @@
+﻿<Window x:Class="Wpf.FrameWork.Test.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf.FrameWork.Test"
+        xmlns:tsc="clr-namespace:TagSelectorWPF;assembly=TagSelectorWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="600" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <tsc:TagSelector x:Name="TagSelect" Source="{Binding SourceList}" Result="{Binding ResultList}"
+                         Tip="{Binding ElementName=TipTextbox,Path=Text,UpdateSourceTrigger=PropertyChanged,Mode=OneWay}"
+                         AllowInput="{Binding ElementName=AllowInputCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}"
+                         AllowCustom="{Binding ElementName=AllowCustomCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}"
+                         AutoComplete="{Binding ElementName=AutoCompleteCheckbox,Path=IsChecked,UpdateSourceTrigger=PropertyChanged}" Margin="5">
+            <tsc:TagSelector.Resources>
+                <Style TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}"/>
+            </tsc:TagSelector.Resources>
+        </tsc:TagSelector>
+        <StackPanel Grid.Row="1">
+            <Button Content="Result" Click="Button_Click"/>
+            <TextBox x:Name="TipTextbox" Text="Press Enter to add Tag" Margin="2" Padding="2"/>
+            <CheckBox x:Name="AllowInputCheckbox" Content="Allow user input text" IsChecked="True" Margin="5"/>
+            <CheckBox x:Name="AllowCustomCheckbox" Content="Allow custom tag that is not in the source" IsChecked="True" Margin="5"/>
+            <CheckBox x:Name="AutoCompleteCheckbox" Content="Auto complete suggestion when type in textbox" IsChecked="True" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
