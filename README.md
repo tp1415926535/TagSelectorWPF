@@ -4,6 +4,10 @@
 [![nuget](https://img.shields.io/nuget/v/TagSelectorWPF?color=lightblue&logo=nuget)](https://www.nuget.org/packages/TagSelectorWPF)     
 ![language](https://img.shields.io/github/languages/top/tp1415926535/TagSelectorWPF)
 
+
+![image](https://github.com/tp1415926535/TagSelectorWPF/assets/58326584/955787b0-377a-4b7e-98a7-ed90e577f750)     
+![image](https://github.com/tp1415926535/TagSelectorWPF/assets/58326584/7b8a1685-a131-4985-9610-ed5c2c4c7833)
+
 ## Function
 * Support for bindings and attributes
   * A list of candidate sources: **Source** - ObserverableCollection&lt;string&gt;
@@ -38,7 +42,7 @@ xaml:
 xmlns:tsc="clr-namespace:TagSelectorWPF;assembly=TagSelectorWPF"
 
 <tsc:TagSelector Source="{Binding SourceList}" Result="{Binding ResultList}"
-                 Tip="Press Enter to add Tag"  AllowInput="True" AllowCustom="True"/>
+                 Tip="Press Enter to add Tag"  AllowInput="True" AllowCustom="True" AutoComplete="True"/>
 ```
 
 ViewModel:
