@@ -101,6 +101,17 @@ namespace TagSelectorWPF
             set { SetValue(allowCustomProperty, value); }
         }
         public static readonly DependencyProperty allowCustomProperty = DependencyProperty.Register("AllowCustom", typeof(bool), typeof(TagSelector), new FrameworkPropertyMetadata(default));
+
+        /// <summary>
+        /// Auto complete suggestion when type in textbox
+        /// <para>在文本框中输入时自动联想补全</para> 
+        /// </summary>
+        public bool AutoComplete
+        {
+            get { return (bool)GetValue(autoCompleteProperty); }
+            set { SetValue(autoCompleteProperty, value); }
+        }
+        public static readonly DependencyProperty autoCompleteProperty = DependencyProperty.Register("AutoComplete", typeof(bool), typeof(TagSelector), new FrameworkPropertyMetadata(default));
         #endregion
 
         /// <summary>
@@ -187,6 +198,7 @@ namespace TagSelectorWPF
         private int _selectionLength;
         private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (!AutoComplete) return;
             if (Source == null || Result == null) return;
             var input = InputBox.Text;
             if (input.Length >= _currentInput.Length && input != _currentSuggestion)
